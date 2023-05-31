@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import Button from "../Button";
+import Button from "../common/Button";
 import FormField from "../Form";
-import Modal from "../Modal";
+import Modal from "../common/Modal";
 import { useAppSelector } from "@/redux/hooks";
 import { selectDesignation } from "@/redux/features/designationSlice";
-import { DesignationsType } from "@/app/(dashboard)/designations/page";
+import { DesignationType } from "./DesignationHome";
 
 export type ModalType = "Edit" | "Delete" | "NONE";
 
@@ -20,7 +20,7 @@ interface FormProps {
   }: {
     modal_type: ModalType;
     id: string | number;
-    data: DesignationsType | {};
+    data: DesignationType | {};
   }) => void;
   onCancel: () => void;
 }
@@ -34,9 +34,9 @@ export default function DesignationModal({
   onCancel,
 }: FormProps) {
   const { designations } = useAppSelector(selectDesignation);
-  const [data, setData] = useState<DesignationsType | {}>();
-  const [editDesignation, setEditDesignation] =useState<DesignationsType | null>();
-
+  const [data, setData] = useState<DesignationType | {}>();
+  const [editDesignation, setEditDesignation] =useState<DesignationType | null>();
+  
   useEffect(() => {
     if (designation_id && designations) {
       const designation = designations.find(
@@ -66,69 +66,65 @@ export default function DesignationModal({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (data) {
-      const id = editDesignation?.id !;
+      const id = editDesignation?.id!;
       onSubmit({ modal_type: type, id, data });
     }
   };
 
   return (
-    <>
-      <Modal show={show} onClose={onClose}>
-        <form onSubmit={handleSubmit}>
-          <Modal.Content>
+    <Modal show={show} onClose={onClose}>
+      <form onSubmit={handleSubmit}>
+        <Modal.Content>
+          {type === "Delete" ? (
+            <Modal.Header className="text-red-500">Warning</Modal.Header>
+          ) : (
+            <Modal.Header className="">{type} Designation</Modal.Header>
+          )}
+          <Modal.Body className="">
             {type === "Delete" ? (
-              <Modal.Header className="text-red-500">Warning</Modal.Header>
+              <>
+                Do you really want to delete the Designation{" "}
+                {editDesignation?.name} ?
+              </>
             ) : (
-              <Modal.Header className="">
-                {type} Designation
-              </Modal.Header>
-            )}
-            <Modal.Body className="">
-              {type === "Delete" ? (
-                <>
-                  Do you really want to delete the Designation{" "}
-                  {editDesignation?.name} ?
-                </>
-              ) : (
-                <>
-                  <FormField>
-                    <FormField.Label htmlFor="name" className="me-1">
-                      Designation Name
-                    </FormField.Label>
-                    
-                    <FormField.Input
-                      type="text"
-                      id="name"
-                      name="designation_name"
-                      defaultValue={editDesignation?.name}
-                      onChange={handleInput}
-                      required
-                    />
-                  </FormField>
-                </>
-              )}
-            </Modal.Body>
-          </Modal.Content>
-          <Modal.Footer>
-            <Button
-              size="default"
-              variant={type === "Delete" ? "danger" : "primary"}
-              type="submit"
-            >
-              {type === "Edit" ? "Update" : "Delete"}
-            </Button>
+              <>
+                <FormField>
+                  <FormField.Label htmlFor="name" className="me-1">
+                    Designation Name
+                  </FormField.Label>
 
-            <Button
-              size="default"
-              variant="secondary"
-              type="button"
-              onClick={onCancel}
-            >
-              Cancel
-            </Button>
-          </Modal.Footer>
-        </form>
-      </Modal>{" "}
-    </>
+                  <FormField.Input
+                    type="text"
+                    id="name"
+                    name="designation_name"
+                    defaultValue={editDesignation?.name}
+                    onChange={handleInput}
+                    required
+                  />
+                </FormField>
+              </>
+            )}
+          </Modal.Body>
+        </Modal.Content>
+        <Modal.Footer>
+          <Button
+            size="default"
+            variant={type === "Delete" ? "danger" : "primary"}
+            type="submit"
+          >
+            {type === "Edit" ? "Update" : "Delete"}
+          </Button>
+
+          <Button
+            size="default"
+            variant="secondary"
+            type="button"
+            onClick={onCancel}
+          >
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </form>
+    </Modal>
   );
 }

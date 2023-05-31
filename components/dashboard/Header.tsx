@@ -7,9 +7,9 @@ import {
   NavbarLink,
   NavbarNav,
   NavbarToggler,
-} from "../Navbar";
-import Modal from "../Modal";
-import Button from "../Button";
+} from "../common/Navbar";
+import Modal from "../common/Modal";
+import Button from "../common/Button";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
 import { selectUser } from "@/redux/features/userSlice";
@@ -20,20 +20,14 @@ const home = [
   { name: "Designation", href: "/designations" },
 ];
 
-export default function Header() {
+function Header() {
   const { user_data } = useAppSelector(selectUser);
-
   const [modal, setModal] = useState(false);
   const [login, setLogin] = useState(false);
-
   const router = useRouter();
 
   useEffect(() => {
-    if (user_data && user_data.access_token === "") {
-      setLogin(false);
-    } else {
-      setLogin(true);
-    }
+    setLogin(Boolean(user_data.access_token)); 
   }, []);
 
   const handleLogout = () => {
@@ -93,3 +87,5 @@ export default function Header() {
     </>
   );
 }
+
+export default Header;

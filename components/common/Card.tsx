@@ -1,7 +1,6 @@
-import { CardStyles } from "./styles/styles";
+import { CardStyles } from "../styles/styles";
 
-interface CardProps {
-  children: React.ReactNode;
+interface CardProps extends React.PropsWithChildren {
   className?: string;
 }
 

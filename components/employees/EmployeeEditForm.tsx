@@ -1,17 +1,17 @@
 "use client";
-import Button from "../Button";
+import Button from "../common/Button";
 import Link from "next/link";
-import Card from "../Card";
+import Card from "../common/Card";
 import { useEffect, useRef, useState } from "react";
 import FormField from "../Form";
-import { EmployeeType } from "@/app/(dashboard)/employees/page";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getDesignations } from "@/redux/features/designationSlice";
 import { selectUser } from "@/redux/features/userSlice";
-import { DesignationsType } from "@/app/(dashboard)/designations/page";
 import { OptionProps } from "../Form";
 import moment from "moment";
 import Image from "next/image";
+import { EmployeeType } from "./EmployeeHome";
+import { DesignationType } from "../designations/DesignationHome";
 
 type UpdateData = {
   id: string | number;
@@ -46,7 +46,7 @@ export default function EmployeeEditForm({ onSubmit, employee }: FormProps) {
     dispatch(getDesignations({ token })).then((response) => {
       if (response && response.payload) {
         const designations = response.payload?.data?.data;
-        const options = designations.map((option: DesignationsType) => ({
+        const options = designations.map((option: DesignationType) => ({
           value: option.id,
           name: option.name,
         }));
@@ -87,7 +87,6 @@ export default function EmployeeEditForm({ onSubmit, employee }: FormProps) {
   };
 
   return (
-    <>
       <form onSubmit={handleSubmit} id="employeeForm">
         <Card.Body className="px-4">
           <FormField>
@@ -342,6 +341,5 @@ export default function EmployeeEditForm({ onSubmit, employee }: FormProps) {
           </Link>
         </Card.Footer>
       </form>
-    </>
   );
 }

@@ -1,9 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment } from "react";
-import { ModalStyles } from "./styles/styles";
+import React, { Fragment } from "react";
+import { ModalStyles } from "../styles/styles";
 
-interface ModalProps {
-  children: React.ReactNode;
+interface ModalProps extends React.PropsWithChildren {
   show: boolean;
   onClose: () => void;
 }
@@ -38,8 +37,7 @@ const Modal = ({ children, show, onClose }: ModalProps) => {
   );
 };
 
-interface ModalSubProps {
-  children: React.ReactNode;
+interface ModalSubProps extends React.PropsWithChildren {
   className?: string;
 }
 

@@ -1,5 +1,5 @@
 export const AlertStyles = {
-  alert: `my-1 rounded px-1 sm:px-6 py-1 sm:py-3 border`,
+  alert: `my-1 rounded px-1 sm:px-6 py-1 sm:py-3 border fixed z-20 top-[64px] sm:top-[50px] right-2 sm:right-8 lg:right-16`,
   variant: {
     primary: `border-[#bce8f1] bg-[#d9edf7] text-[#3a87b6]`,
     success: `border-[#d6e9c6] bg-[#dff0d8] text-[#468847]`,
@@ -54,10 +54,6 @@ export const FormStyles = {
     checkbox: `accent-violet-600 w-4 h-4`,
     file: `text-gray-900 text-sm focus:outline-none w-full p-2.5`,
   },
-};
-
-export const LoadingStyles = {
-  loading: `inline w-4 h-4 mr-2 text-slate-400 animate-spin fill-violet-500`,
 };
 
 export const ModalStyles = {

@@ -2,10 +2,10 @@ import { BASE_URL } from "@/api";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
-import { DesignationsType } from "@/app/(dashboard)/designations/page";
+import { DesignationType } from "@/components/designations/DesignationHome";
 
 export type DesignationState = {
-  designations: DesignationsType[] | null;
+  designations: DesignationType[] | null;
   pending: boolean;
   error: boolean;
 };

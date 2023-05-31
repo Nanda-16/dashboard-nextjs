@@ -17,14 +17,12 @@ function PaginationComponent({
   const [currentPage, setcurrentPage] = useState(1);
   const [maxPageNumberLimit, setmaxPageNumberLimit] = useState(maxPageNumber);
   const [minPageNumberLimit, setminPageNumberLimit] = useState(0);
+  const length = pageLength;
+  const pages = Array.from({ length }, (_, index) => index + 1);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setcurrentPage(Number((event.target as HTMLButtonElement).value));
   };
-
-  useEffect(() => {
-    onPageChange(currentPage);
-  }, [currentPage]);
 
   const handleNextbtn = () => {
     setcurrentPage(currentPage + 1);
@@ -41,9 +39,11 @@ function PaginationComponent({
       setminPageNumberLimit(minPageNumberLimit - maxPageNumber);
     }
   };
+  
+  useEffect(() => {
+    onPageChange(currentPage);
+  }, [currentPage]);
 
-  const length = pageLength;
-  const pages = Array.from({ length }, (_, index) => index + 1);
   const renderPageNumbers = pages.map((number) => {
     if (number < maxPageNumberLimit + 1 && number > minPageNumberLimit) {
       return (
@@ -61,7 +61,6 @@ function PaginationComponent({
         </button>
       );
     }
-    return null;
   });
 
   let pageIncrementBtn = null;

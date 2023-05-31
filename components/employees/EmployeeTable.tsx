@@ -1,14 +1,13 @@
-import Card from "../Card";
+import Card from "../common/Card";
 import Table from "../Table";
 import Link from "next/link";
-import Button from "../Button";
+import Button from "../common/Button";
 import moment from "moment";
-import { EmployeeType } from "@/app/(dashboard)/employees/page";
 import PaginationComponent from "../Pagination";
-import { useState } from "react";
 import { getEmployees } from "@/redux/features/employeeSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectUser } from "@/redux/features/userSlice";
+import { EmployeeType } from "./EmployeeHome";
 
 interface EmployeeTable {
   headings: string[];

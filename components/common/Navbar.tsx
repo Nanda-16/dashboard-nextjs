@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dancing_Script } from "next/font/google";
-import { NavbarStyles } from "./styles/styles";
+import { NavbarStyles } from "../styles/styles";
 
 const dancingScript = Dancing_Script({ subsets: ["latin"] });
 
@@ -38,6 +38,7 @@ export const Navbar = ({
     window.addEventListener("click", handleOutsideClick);
     return () => window.removeEventListener("click", handleOutsideClick);
   }, [open, navbarRef]);
+
   return (
     <navcontext.Provider value={{ open, toggle }}>
       <nav ref={navbarRef} className={`${className} ${NavbarStyles.navbar}`}>
@@ -49,6 +50,7 @@ export const Navbar = ({
 
 export const NavbarToggler = () => {
   const { toggle } = useContext(navcontext)!;
+
   return (
     <button
       type="button"
@@ -63,12 +65,14 @@ export const NavbarToggler = () => {
 };
 
 export const NavbarCollapse = ({ children }: { children: React.ReactNode }) => {
-  const { open } = useContext(navcontext)!; // Adding '!' to assert that navcontext is not undefined
+  const { open } = useContext(navcontext)!;
   return (
     <div
       style={{ backgroundColor: "inherit" }}
       className={`${NavbarStyles.collapse.default}
-              ${open ? NavbarStyles.collapse.open : NavbarStyles.collapse.close}`}
+              ${
+                open ? NavbarStyles.collapse.open : NavbarStyles.collapse.close
+              }`}
     >
       {children}
     </div>
@@ -82,7 +86,10 @@ export const NavbarHead = ({
   children: React.ReactNode;
   href: string;
 }) => (
-  <Link href={href} className={`${dancingScript.className} ${NavbarStyles.head}`}>
+  <Link
+    href={href}
+    className={`${dancingScript.className} ${NavbarStyles.head}`}
+  >
     <strong>{children}</strong>
   </Link>
 );
@@ -101,32 +108,34 @@ export const NavbarItem = ({ children }: { children: React.ReactNode }) => (
   <li className={NavbarStyles.item}>{children}</li>
 );
 
-interface NavLinks {
-  navLinks: {
-    name: string;
-    href: string;
-  }[];
+interface NavLink {
+  name: string;
+  href: string;
 }
 
-export const NavbarLink = ({ navLinks }: NavLinks) => {
+export const NavbarLink = ({navLinks}: {navLinks: NavLink[]}) => {
   const pathname = usePathname();
   return (
     <>
-      {navLinks?.map((link, index) => {
-        const isActive = pathname.startsWith(link.href);
-
-        return (
-          <li className={`${NavbarStyles.item} ${NavbarStyles.link}`} key={index + 1}>
-            <Link
-              className={isActive ? "underline" : ""}
-              href={link.href}
-              key={link.name}
-            >
-              {link.name}
-            </Link>
-          </li>
-        );
-      })}
+      {navLinks?.map((link, index) => (
+        <NavItem link={link} key={index + 1} />
+      ))}
     </>
   );
 };
+
+function NavItem({ link }: { link: NavLink }) {
+  const pathname = usePathname();
+  const isActive = pathname.startsWith(link.href);
+  return (
+    <li className={`${NavbarStyles.item} ${NavbarStyles.link}`}>
+      <Link
+        className={isActive ? "underline" : ""}
+        href={link.href}
+        key={link.name}
+      >
+        {link.name}
+      </Link>
+    </li>
+  );
+}

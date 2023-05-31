@@ -1,7 +1,6 @@
 import { TableStyles } from "./styles/styles";
 
-interface TableProps {
-  children: React.ReactNode;
+interface TableProps extends React.PropsWithChildren {
   className?: string;
   columnHeads: string[];
 }
@@ -38,8 +37,7 @@ const Table = ({ children, className, columnHeads }: TableProps) => {
   );
 };
 
-interface TableChildProps {
-  children: React.ReactNode;
+interface TableChildProps extends React.PropsWithChildren {
   className?: string;
 }
 

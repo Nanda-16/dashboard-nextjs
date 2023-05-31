@@ -2,7 +2,7 @@ import { BASE_URL } from "@/api";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
-import { EmployeeType } from "@/app/(dashboard)/employees/page";
+import { EmployeeType } from "@/components/employees/EmployeeHome";
 
 export type Employeestate = {
   employees: EmployeeType[] | null;

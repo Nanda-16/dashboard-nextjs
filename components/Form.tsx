@@ -2,8 +2,7 @@
 import { createRef, forwardRef } from "react";
 import { FormStyles } from "./styles/styles";
 
-interface FormProps {
-  children: React.ReactNode;
+interface FormProps extends React.PropsWithChildren {
   className?: string;
   htmlFor?: string;
 }
@@ -36,8 +35,8 @@ const FormInput = forwardRef<HTMLInputElement, FormInputProps>(
   ({ className, type, ...props }, ref) => {
     const inputRef = ref || createRef<HTMLInputElement>();
 
-    var inputStyle = FormStyles.input.text;
-    var boxStyle = FormStyles.form.box;
+    let inputStyle = FormStyles.input.text;
+    let boxStyle = FormStyles.form.box;
 
     if (type === "checkbox" || type === "radio") {
       inputStyle = FormStyles.input.checkbox;
@@ -72,8 +71,9 @@ const FormTextarea = ({ className, ...props }: FormTextAreaProps) => {
   );
 };
 
-interface FormSelectProps extends React.InputHTMLAttributes<HTMLSelectElement> {
-  children: React.ReactNode;
+interface FormSelectProps
+  extends React.InputHTMLAttributes<HTMLSelectElement>,
+    React.PropsWithChildren {
   defaultValue?: string | number;
   className?: string;
 }
