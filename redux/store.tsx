@@ -7,7 +7,6 @@ import userReducer from "./features/userSlice";
 import designationReducer from "./features/designationSlice";
 import employeeReducer from "./features/employeeSlice";
 
-
 const persistConfig = {
   key: "root",
   storage,

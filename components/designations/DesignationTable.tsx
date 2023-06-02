@@ -25,8 +25,8 @@ export default function DesignationTable({
   const { user_data } = useAppSelector(selectUser);
 
   const handlePageChange = (page: number) => {
-    const token = user_data.access_token;
-    dispatch(getDesignations({ token, page: page }));
+    const token = user_data?.access_token;
+    if (token) dispatch(getDesignations({ token, page: page }));
   };
 
   return (

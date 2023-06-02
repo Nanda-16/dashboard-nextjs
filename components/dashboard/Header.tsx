@@ -11,8 +11,9 @@ import {
 import Modal from "../common/Modal";
 import Button from "../common/Button";
 import { useRouter } from "next/navigation";
-import { useAppSelector } from "@/redux/hooks";
-import { selectUser } from "@/redux/features/userSlice";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { logout, selectUser } from "@/redux/features/userSlice";
+import { persistor } from "@/redux/store";
 
 const home = [
   { name: "Home", href: "/home" },
@@ -25,14 +26,20 @@ function Header() {
   const [modal, setModal] = useState(false);
   const [login, setLogin] = useState(false);
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setLogin(Boolean(user_data.access_token)); 
+    setLogin(Boolean(user_data?.access_token));
   }, []);
 
-  const handleLogout = () => {
-    localStorage.clear();
-    router.push('/');
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout());
+      await persistor.purge();
+      router.replace("/?login=true");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -62,7 +69,7 @@ function Header() {
           <Modal.Content>
             <Modal.Body className="">Do you really want to Logout ?</Modal.Body>
           </Modal.Content>
-          
+
           <Modal.Footer>
             <Button
               size="default"

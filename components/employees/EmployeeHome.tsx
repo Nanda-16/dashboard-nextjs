@@ -54,12 +54,12 @@ function EmployeeHome() {
   const router = useRouter();
 
   useEffect(() => {
-    if (user_data.access_token !== "") {
+    if (user_data?.access_token) {
       setLogin(true);
-      setLoading(true);   
-      fetchEmployees(user_data.access_token);
-    }else{
-      router.push('/');
+      setLoading(true);
+      fetchEmployees(user_data?.access_token);
+    } else {
+      router.push("/");
     }
   }, []);
 
@@ -96,29 +96,31 @@ function EmployeeHome() {
 
   const handleDelete = async (id: string | number) => {
     try {
-      const token = user_data.access_token;
-      const response = await dispatch(deleteEmployee({ token, id }));
+      const token = user_data?.access_token;
+      if (token) {
+        const response = await dispatch(deleteEmployee({ token, id }));
 
-      if (response && response.payload) {
-        setMessage(
-          response.payload.message
-            ? response.payload.message
-            : response.payload.error
-        );
-        setError(response.payload.error);
-      } else {
-        setMessage("Something went wrong");
-        setError(true);
+        if (response && response.payload) {
+          setMessage(
+            response.payload.message
+              ? response.payload.message
+              : response.payload.error
+          );
+          setError(response.payload.error);
+        } else {
+          setMessage("Something went wrong");
+          setError(true);
+        }
+
+        dispatch(getEmployees({ token }));
+        closeModal();
+        setLoading(true);
+        setToast(true);
+        setTimeout(() => {
+          setToast(false);
+          setLoading(false);
+        }, 3000);
       }
-
-      dispatch(getEmployees({ token }));
-      closeModal();
-      setLoading(true);
-      setToast(true);
-      setTimeout(() => {
-        setToast(false);
-        setLoading(false);
-      }, 3000);
     } catch (error) {
       console.error(error);
     }

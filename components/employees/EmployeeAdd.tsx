@@ -7,18 +7,29 @@ import EmployeeForm from "./EmployeeForm";
 import { EmployeeType } from "./EmployeeHome";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectUser } from "@/redux/features/userSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 function EmployeeAdd() {
   const dispatch = useAppDispatch();
   const { user_data } = useAppSelector(selectUser);
+  const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user_data?.access_token) {
+      setLoading(false);
+    } else {
+      router.push("/");
+    }
+  }, []);
 
   const handleSubmit = async (data: EmployeeType) => {
     try {
-      const token = user_data.access_token;
+      const token = user_data?.access_token;
 
       const formData = new FormData();
       formData.append("first_name", data.first_name ?? "");
@@ -41,32 +52,33 @@ function EmployeeAdd() {
         "landline",
         data.landline ? (data.landline as string) : ""
       );
+      if (token) {
+        const response = await dispatch(createEmployee({ token, formData }));
 
-      const response = await dispatch(createEmployee({ token, formData }));
+        if (response && response.payload) {
+          setMessage(
+            response.payload.message
+              ? response.payload.message
+              : response.payload.error
+          );
+          setError(response.payload.error);
+        } else {
+          setMessage("Something went wrong");
+          setError(true);
+        }
 
-      if (response && response.payload) {
-        setMessage(
-          response.payload.message
-            ? response.payload.message
-            : response.payload.error
-        );
-        setError(response.payload.error);
-      } else {
-        setMessage("Something went wrong");
-        setError(true);
+        setToast(true);
+        setTimeout(() => {
+          setToast(false);
+        }, 3000);
       }
-
-      setToast(true);
-      setTimeout(() => {
-        setToast(false);
-      }, 3000);
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <Container className="w-full">
+    <Container className="w-full" loading={loading}>
       <Alert
         variant={error ? "danger" : "success"}
         title={error ? "Failed" : "Success"}

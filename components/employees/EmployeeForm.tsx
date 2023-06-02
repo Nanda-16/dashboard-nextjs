@@ -36,17 +36,19 @@ export default function EmployeeForm({ onSubmit }: FormProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const token = user_data.access_token;
-    dispatch(getDesignations({ token })).then((response) => {
-      if (response && response.payload) {
-        const designations = response.payload?.data?.data;
-        const options = designations.map((option: DesignationType) => ({
-          value: option.id,
-          name: option.name,
-        }));
-        setSelectOptions(options);
-      }
-    });
+    const token = user_data?.access_token;
+    if(token){
+      dispatch(getDesignations({ token })).then((response) => {
+        if (response && response.payload) {
+          const designations = response.payload?.data?.data;
+          const options = designations.map((option: DesignationType) => ({
+            value: option.id,
+            name: option.name,
+          }));
+          setSelectOptions(options);
+        }
+      });
+    }
     if (inputRef.current) {
       inputRef.current.focus();
     }

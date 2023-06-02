@@ -113,7 +113,7 @@ interface NavLink {
   href: string;
 }
 
-export const NavbarLink = ({navLinks}: {navLinks: NavLink[]}) => {
+export const NavbarLink = ({ navLinks }: { navLinks: NavLink[] }) => {
   const pathname = usePathname();
   return (
     <>

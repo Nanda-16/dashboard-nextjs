@@ -20,7 +20,7 @@ function Register() {
       const response = await dispatch(userRegister({ formData: data }));
 
       if (response.payload && response.payload.data) {
-        router.push("/home");
+        router.replace("/home");
       } else {
         setToast(true);
         setLoading(false);

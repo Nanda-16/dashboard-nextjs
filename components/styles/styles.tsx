@@ -83,9 +83,9 @@ export const PaginationStyles = {
   ul: `inline-flex -space-x-px my-2`,
   prev: `ml-0 rounded-l-md`,
   next: `rounded-r-md`,
-  li: `px-3 py-2 leading-tight bg-neutral-600 border-gray-800 text-gray-300 hover:bg-neutral-700 hover:text-white`,
-  disabled: `px-3 py-2 leading-tight bg-neutral-600 border-gray-800 text-gray-500`,
-  active: `px-3 py-2 hover:bg-violet-100 hover:text-violet-700 border-gray-800 bg-neutral-700 text-white`,
+  li: `px-1 sm:px-3 py-2 leading-tight bg-neutral-600 border-gray-800 text-gray-300 hover:bg-neutral-700 hover:text-white`,
+  disabled: `px-1 sm:px-3 py-2 leading-tight bg-neutral-600 border-gray-800 text-gray-500`,
+  active: `px-1 sm:px-3 py-2 hover:bg-violet-100 hover:text-violet-700 border-gray-800 bg-neutral-700 text-white`,
 };
 
 export const TableStyles = {

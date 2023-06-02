@@ -42,17 +42,19 @@ export default function EmployeeEditForm({ onSubmit, employee }: FormProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const token = user_data.access_token;
-    dispatch(getDesignations({ token })).then((response) => {
-      if (response && response.payload) {
-        const designations = response.payload?.data?.data;
-        const options = designations.map((option: DesignationType) => ({
-          value: option.id,
-          name: option.name,
-        }));
-        setSelectOptions(options);
-      }
-    });
+    const token = user_data?.access_token;
+    if (token) {
+      dispatch(getDesignations({ token })).then((response) => {
+        if (response && response.payload) {
+          const designations = response.payload?.data?.data;
+          const options = designations.map((option: DesignationType) => ({
+            value: option.id,
+            name: option.name,
+          }));
+          setSelectOptions(options);
+        }
+      });
+    }
     if (inputRef.current) {
       inputRef.current.focus();
     }
@@ -87,259 +89,257 @@ export default function EmployeeEditForm({ onSubmit, employee }: FormProps) {
   };
 
   return (
-      <form onSubmit={handleSubmit} id="employeeForm">
-        <Card.Body className="px-4">
-          <FormField>
-            <FormField.Label htmlFor="employeeFirstName">
-              First Name
-            </FormField.Label>
+    <form onSubmit={handleSubmit} id="employeeForm">
+      <Card.Body className="px-4">
+        <FormField>
+          <FormField.Label htmlFor="employeeFirstName">
+            First Name
+          </FormField.Label>
+          <FormField.Input
+            type="text"
+            id="employeeFirstName"
+            name="first_name"
+            ref={inputRef}
+            defaultValue={data?.first_name}
+            onChange={handleOnChange}
+            required
+          />
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="employeeLastName">
+            Last Name
+          </FormField.Label>
+          <FormField.Input
+            type="text"
+            id="employeeLastName"
+            name="last_name"
+            defaultValue={data?.last_name}
+            onChange={handleOnChange}
+            required
+          />
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="employeeJoiningDate">
+            Joining Date
+          </FormField.Label>
+          <FormField.Input
+            id="employeeJoiningDate"
+            type="date"
+            name="join_date"
+            defaultValue={getDate(data?.join_date ?? "")}
+            onChange={handleOnChange}
+            required
+          />
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="employeeDateOfBirth">
+            Date of Birth
+          </FormField.Label>
+          <FormField.Input
+            id="employeeDateOfBirth"
+            type="date"
+            name="date_of_birth"
+            defaultValue={getDate(data?.date_of_birth ?? "")}
+            onChange={handleOnChange}
+            required
+          />
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="employeeDesignation">
+            Designation
+          </FormField.Label>
+          <FormField.Select
+            id="employeeDesignation"
+            name="designation_id"
+            onChange={handleOnChange}
+            value={data?.designation_id || ""}
+            required
+          >
+            {selectOptions && <FormField.Option options={selectOptions} />}
+          </FormField.Select>
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="gender">Gender</FormField.Label>
+
+          <div className="flex">
             <FormField.Input
-              type="text"
-              id="employeeFirstName"
-              name="first_name"
-              ref={inputRef}
-              defaultValue={data?.first_name}
+              type="radio"
+              id="employeeMale"
+              name="gender"
+              value="Male"
+              checked={data?.gender === "Male"}
               onChange={handleOnChange}
+              className="mt-1"
               required
             />
-          </FormField>
 
-          <FormField>
-            <FormField.Label htmlFor="employeeLastName">
-              Last Name
+            <FormField.Label htmlFor="employeeMale" className="p-1">
+              Male
             </FormField.Label>
+          </div>
+
+          <div className="flex">
             <FormField.Input
-              type="text"
-              id="employeeLastName"
-              name="last_name"
-              defaultValue={data?.last_name}
+              type="radio"
+              id="employeeFemale"
+              name="gender"
+              value="Female"
+              checked={data?.gender === "Female"}
               onChange={handleOnChange}
+              className="mt-1"
               required
             />
-          </FormField>
 
-          <FormField>
-            <FormField.Label htmlFor="employeeJoiningDate">
-              Joining Date
+            <FormField.Label htmlFor="employeeFemale" className="p-1">
+              Female
             </FormField.Label>
+          </div>
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="employeeMobileNumber">
+            Mobile Number
+          </FormField.Label>
+
+          <FormField.Input
+            id="employeeMobileNumber"
+            type="text"
+            name="mobile"
+            pattern="[6-9]{1}[0-9]{9}"
+            defaultValue={data?.mobile}
+            onChange={handleOnChange}
+            required
+          />
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="employeeLandline">Landline</FormField.Label>
+
+          <FormField.Input
+            id="employeeLandline"
+            type="text"
+            name="landline"
+            pattern="[0-9]{4}[1-9]{1}[0-9]{3}"
+            defaultValue={data?.landline}
+            onChange={handleOnChange}
+            required
+          />
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="employeeEmail">
+            Email Address
+          </FormField.Label>
+
+          <FormField.Input
+            id="employeeEmail"
+            type="email"
+            name="email"
+            defaultValue={data?.email}
+            onChange={handleOnChange}
+            required
+          />
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="present_address_id">
+            Present Address
+          </FormField.Label>
+
+          <FormField.Textarea
+            id="present_address_id"
+            name="present_address"
+            rows={5}
+            value={data?.present_address}
+            onChange={handleOnChange}
+            required
+          />
+        </FormField>
+
+        <FormField>
+          <FormField.Label> </FormField.Label>
+
+          <div className="md:w-2/3 flex">
             <FormField.Input
-              id="employeeJoiningDate"
-              type="date"
-              name="join_date"
-              defaultValue={getDate(data?.join_date ?? "")}
-              onChange={handleOnChange}
-              required
+              type="checkbox"
+              id="sameAddress"
+              checked={sameAddress}
+              onChange={(e) => {
+                setSameAddress(e.currentTarget.checked);
+              }}
             />
-          </FormField>
 
-          <FormField>
-            <FormField.Label htmlFor="employeeDateOfBirth">
-              Date of Birth
-            </FormField.Label>
-            <FormField.Input
-              id="employeeDateOfBirth"
-              type="date"
-              name="date_of_birth"
-              defaultValue={getDate(data?.date_of_birth ?? "")}
-              onChange={handleOnChange}
-              required
-            />
-          </FormField>
-
-          <FormField>
-            <FormField.Label htmlFor="employeeDesignation">
-              Designation
-            </FormField.Label>
-            <FormField.Select
-              id="employeeDesignation"
-              name="designation_id"
-              onChange={handleOnChange}
-              value={data?.designation_id || ""}
-              required
+            <label
+              htmlFor="sameAddress"
+              className="text-sm font-semibold ms-1 cursor-pointer"
             >
-              {selectOptions && <FormField.Option options={selectOptions} />}
-            </FormField.Select>
-          </FormField>
+              Same as present address
+            </label>
+          </div>
+        </FormField>
 
-          <FormField>
-            <FormField.Label htmlFor="gender">Gender</FormField.Label>
+        <FormField>
+          <FormField.Label htmlFor="permanent_address_id">
+            Permanent Address
+          </FormField.Label>
 
-            <div className="flex">
-              <FormField.Input
-                type="radio"
-                id="employeeMale"
-                name="gender"
-                value="Male"
-                checked={data?.gender === "Male"}
-                onChange={handleOnChange}
-                className="mt-1"
-                required
+          <FormField.Textarea
+            id="permanent_address_id"
+            name="permanent_address"
+            rows={5}
+            onChange={handleOnChange}
+            value={data?.permanent_address}
+            required
+          />
+        </FormField>
+
+        <FormField>
+          <FormField.Label htmlFor="employeeStatus">Status</FormField.Label>
+
+          <FormField.Select
+            id="employeeStatus"
+            name="status"
+            onChange={handleOnChange}
+            defaultValue={data?.status}
+            required
+          >
+            <FormField.Option options={statusOptions} />
+          </FormField.Select>
+        </FormField>
+
+        <FormField>
+          <FormField.Label>Current Profile</FormField.Label>
+
+          <div className="md:w-3/4 my-2">
+            {data?.profile_image ? (
+              <Image
+                src={data?.profile_image}
+                alt="Employee Profile"
+                width={80}
+                height={80}
               />
+            ) : (
+              <span className="text-slate-600">No Image Found</span>
+            )}
+          </div>
+        </FormField>
+      </Card.Body>
+      <Card.Footer>
+        <Button type="submit" variant="primary" size="default">
+          Update
+        </Button>
 
-              <FormField.Label htmlFor="employeeMale" className="p-1">
-                Male
-              </FormField.Label>
-            </div>
-
-            <div className="flex">
-              <FormField.Input
-                type="radio"
-                id="employeeFemale"
-                name="gender"
-                value="Female"
-                checked={data?.gender === "Female"}
-                onChange={handleOnChange}
-                className="mt-1"
-                required
-              />
-
-              <FormField.Label htmlFor="employeeFemale" className="p-1">
-                Female
-              </FormField.Label>
-            </div>
-          </FormField>
-
-          <FormField>
-            <FormField.Label htmlFor="employeeMobileNumber">
-              Mobile Number
-            </FormField.Label>
-
-            <FormField.Input
-              id="employeeMobileNumber"
-              type="text"
-              name="mobile"
-              pattern="[6-9]{1}[0-9]{9}"
-              defaultValue={data?.mobile}
-              onChange={handleOnChange}
-              required
-            />
-          </FormField>
-
-          <FormField>
-            <FormField.Label htmlFor="employeeLandline">
-              Landline
-            </FormField.Label>
-
-            <FormField.Input
-              id="employeeLandline"
-              type="text"
-              name="landline"
-              pattern="[0-9]{4}[1-9]{1}[0-9]{3}"
-              defaultValue={data?.landline}
-              onChange={handleOnChange}
-              required
-            />
-          </FormField>
-
-          <FormField>
-            <FormField.Label htmlFor="employeeEmail">
-              Email Address
-            </FormField.Label>
-
-            <FormField.Input
-              id="employeeEmail"
-              type="email"
-              name="email"
-              defaultValue={data?.email}
-              onChange={handleOnChange}
-              required
-            />
-          </FormField>
-
-          <FormField>
-            <FormField.Label htmlFor="present_address_id">
-              Present Address
-            </FormField.Label>
-
-            <FormField.Textarea
-              id="present_address_id"
-              name="present_address"
-              rows={5}
-              value={data?.present_address}
-              onChange={handleOnChange}
-              required
-            />
-          </FormField>
-
-          <FormField>
-            <FormField.Label> </FormField.Label>
-
-            <div className="md:w-2/3 flex">
-              <FormField.Input
-                type="checkbox"
-                id="sameAddress"
-                checked={sameAddress}
-                onChange={(e) => {
-                  setSameAddress(e.currentTarget.checked);
-                }}
-              />
-
-              <label
-                htmlFor="sameAddress"
-                className="text-sm font-semibold ms-1 cursor-pointer"
-              >
-                Same as present address
-              </label>
-            </div>
-          </FormField>
-
-          <FormField>
-            <FormField.Label htmlFor="permanent_address_id">
-              Permanent Address
-            </FormField.Label>
-
-            <FormField.Textarea
-              id="permanent_address_id"
-              name="permanent_address"
-              rows={5}
-              onChange={handleOnChange}
-              value={data?.permanent_address}
-              required
-            />
-          </FormField>
-
-          <FormField>
-            <FormField.Label htmlFor="employeeStatus">Status</FormField.Label>
-
-            <FormField.Select
-              id="employeeStatus"
-              name="status"
-              onChange={handleOnChange}
-              defaultValue={data?.status}
-              required
-            >
-              <FormField.Option options={statusOptions} />
-            </FormField.Select>
-          </FormField>
-
-          <FormField>
-            <FormField.Label>Current Profile</FormField.Label>
-
-            <div className="md:w-3/4 my-2">
-              {data?.profile_image ? (
-                <Image
-                  src={data?.profile_image}
-                  alt="Employee Profile"
-                  width={80}
-                  height={80}
-                />
-              ) : (
-                <span className="text-slate-600">No Image Found</span>
-              )}
-            </div>
-          </FormField>
-        </Card.Body>
-        <Card.Footer>
-          <Button type="submit" variant="primary" size="default">
-            Update
+        <Link href="/employees">
+          <Button type="button" variant="secondary" size="default">
+            Cancel
           </Button>
-
-          <Link href="/employees">
-            <Button type="button" variant="secondary" size="default">
-              Cancel
-            </Button>
-          </Link>
-        </Card.Footer>
-      </form>
+        </Link>
+      </Card.Footer>
+    </form>
   );
 }

@@ -2,21 +2,19 @@ import { BASE_URL } from "@/api";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
+import { useRouter } from "next/navigation";
 
 export type UserState = {
   user_data: {
     access_token: string;
     token_type: string;
-  };
+  } | null;
   pending: boolean;
   error: boolean;
 };
 
 const initialState: UserState = {
-  user_data: {
-    access_token: "",
-    token_type: "",
-  },
+  user_data: null,
   pending: false,
   error: false,
 };
@@ -40,7 +38,11 @@ export const userRegister = createAsyncThunk(
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.user_data = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // login
@@ -70,6 +72,7 @@ export const userSlice = createSlice({
   },
 });
 
+export const { logout } = userSlice.actions;
 export const selectUser = (state: RootState) => state.user;
 
 export default userSlice.reducer;

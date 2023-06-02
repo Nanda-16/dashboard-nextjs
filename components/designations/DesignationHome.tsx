@@ -38,7 +38,9 @@ function DesignationHome() {
   const dispatch = useAppDispatch();
   const { designations } = useAppSelector(selectDesignation);
   const { user_data } = useAppSelector(selectUser);
-  const [designationData, setDesignationData] = useState<DesignationType[] | null>(null);
+  const [designationData, setDesignationData] = useState<
+    DesignationType[] | null
+  >(null);
   const [login, setLogin] = useState(false);
   const [length, setLength] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -52,8 +54,8 @@ function DesignationHome() {
   const router = useRouter();
 
   useEffect(() => {
-    const token = user_data.access_token;
-    if (token !== "") {
+    const token = user_data?.access_token;
+    if (token) {
       setLogin(true);
       setLoading(true);
       fetchDesignations(token);
@@ -86,31 +88,33 @@ function DesignationHome() {
 
   const handleAdd = async (data: DesignationType | {}) => {
     try {
-      const token = user_data.access_token;
-      const response = await dispatch(
-        createDesignation({ token, formData: data })
-      );
-
-      if (response && response.payload) {
-        setMessage(
-          response.payload.message
-            ? response.payload.message
-            : response.payload.error
+      const token = user_data?.access_token;
+      if (token) {
+        const response = await dispatch(
+          createDesignation({ token, formData: data })
         );
-        setError(response.payload.error);
-      } else {
-        setMessage("Something went wrong");
-        setError(true);
-      }
 
-      dispatch(getDesignations({ token }));
-      setAddModal(false);
-      setLoading(true);
-      setToast(true);
-      setTimeout(() => {
-        setToast(false);
-        setLoading(false);
-      }, 3000);
+        if (response && response.payload) {
+          setMessage(
+            response.payload.message
+              ? response.payload.message
+              : response.payload.error
+          );
+          setError(response.payload.error);
+        } else {
+          setMessage("Something went wrong");
+          setError(true);
+        }
+
+        dispatch(getDesignations({ token }));
+        setAddModal(false);
+        setLoading(true);
+        setToast(true);
+        setTimeout(() => {
+          setToast(false);
+          setLoading(false);
+        }, 3000);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -153,24 +157,26 @@ function DesignationHome() {
 
   const handleEdit = async (data: updateData) => {
     try {
-      const token = user_data.access_token;
-      const response = await dispatch(
-        editDesignation({ token, id: data.id, formData: data.data })
-      );
-
-      if (response && response.payload) {
-        setMessage(
-          response.payload.message
-            ? response.payload.message
-            : response.payload.error
+      const token = user_data?.access_token;
+      if (token) {
+        const response = await dispatch(
+          editDesignation({ token, id: data.id, formData: data.data })
         );
-        setError(response.payload.error);
-        dispatch(getDesignations({ token }));
-        setDesignationId("");
-        setLoading(true);
-      } else {
-        setMessage("Something went wrong");
-        setError(true);
+
+        if (response && response.payload) {
+          setMessage(
+            response.payload.message
+              ? response.payload.message
+              : response.payload.error
+          );
+          setError(response.payload.error);
+          dispatch(getDesignations({ token }));
+          setDesignationId("");
+          setLoading(true);
+        } else {
+          setMessage("Something went wrong");
+          setError(true);
+        }
       }
     } catch (error) {
       console.error(error);
@@ -179,24 +185,26 @@ function DesignationHome() {
 
   const handleDelete = async (data: updateData) => {
     try {
-      const token = user_data.access_token;
-      const response = await dispatch(
-        deleteDesignation({ token, id: data.id })
-      );
-
-      if (response && response.payload) {
-        setMessage(
-          response.payload.message
-            ? response.payload.message
-            : response.payload.error
+      const token = user_data?.access_token;
+      if (token) {
+        const response = await dispatch(
+          deleteDesignation({ token, id: data.id })
         );
-        setError(response.payload.error);
-        dispatch(getDesignations({ token }));
-        setDesignationId("");
-        setLoading(true);
-      } else {
-        setMessage("Something went wrong");
-        setError(true);
+
+        if (response && response.payload) {
+          setMessage(
+            response.payload.message
+              ? response.payload.message
+              : response.payload.error
+          );
+          setError(response.payload.error);
+          dispatch(getDesignations({ token }));
+          setDesignationId("");
+          setLoading(true);
+        } else {
+          setMessage("Something went wrong");
+          setError(true);
+        }
       }
     } catch (error) {
       console.error(error);

@@ -12,7 +12,7 @@ const withAuth = <P extends object>(
     const { user_data } = useAppSelector(selectUser);
 
     // useEffect(() => {
-      if (user_data && user_data.access_token === "") {
+      if (user_data?.access_token === "") {
         router.push("/");
       }
     // }, []);

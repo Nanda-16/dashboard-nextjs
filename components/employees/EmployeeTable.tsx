@@ -24,10 +24,10 @@ export default function EmployeeTable({
 }: EmployeeTable) {
   const dispatch = useAppDispatch();
   const { user_data } = useAppSelector(selectUser);
-  
+
   const handlePageChange = (page: number) => {
-    const token = user_data.access_token;
-    dispatch(getEmployees({ token, page: page }));
+    const token = user_data?.access_token;
+    if (token) dispatch(getEmployees({ token, page: page }));
   };
 
   const getDate = (date: string) => {
@@ -59,7 +59,7 @@ export default function EmployeeTable({
 
                   <Table.Row>{getDate(data?.join_date ?? "")}</Table.Row>
                   <Table.Row>{getDate(data?.date_of_birth ?? "")}</Table.Row>
-                  
+
                   <Table.Row>{data?.gender}</Table.Row>
                   <Table.Row>{data?.email}</Table.Row>
 
