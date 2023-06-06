@@ -1,5 +1,4 @@
 "use client";
-import Header from "./Header";
 import Alert from "../common/Alert";
 import Container from "../common/Container";
 import { useAppDispatch } from "@/redux/hooks";
@@ -20,7 +19,7 @@ function Login() {
       const response = await dispatch(userLogin({ formData: data }));
 
       if (response.payload && response.payload.data) {
-        router.replace("/home");
+        router.push("/home");
       } else {
         setToast(true);
         setLoading(false);
@@ -35,13 +34,11 @@ function Login() {
 
   return (
     <>
-      <Header />
       <Container>
         <Alert
           variant="danger"
-          message="Invalid E-mail or Password"
+          message="Something went wrong. Please try again"
           title="Login Failed"
-          className=""
           close
           show={toast}
         />

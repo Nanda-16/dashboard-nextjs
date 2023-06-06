@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inconsolata } from "next/font/google";
 import { Providers } from "@/redux/provider";
+import Header from "./components/common/Header";
 
 const inconsolata = Inconsolata({ subsets: ["latin"] });
 
@@ -17,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inconsolata.className}>
-        <Providers>{children}</Providers>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   );

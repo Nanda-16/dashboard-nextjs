@@ -7,9 +7,9 @@ import {
   NavbarLink,
   NavbarNav,
   NavbarToggler,
-} from "../common/Navbar";
-import Modal from "../common/Modal";
-import Button from "../common/Button";
+} from "./Navbar";
+import Modal from "./Modal";
+import Button from "./Button";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout, selectUser } from "@/redux/features/userSlice";
@@ -30,14 +30,15 @@ function Header() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setLogin(Boolean(user_data?.access_token));
-  }, []);
+    if (user_data?.access_token) setLogin(true);
+  }, [user_data?.access_token]);
 
   const handleLogout = async () => {
     try {
       await persistor.purge();
+      localStorage.clear();
       dispatch(logout());
-      router.replace("/?login=true");
+      router.push("/?login=true");
     } catch (error) {
       console.error(error);
     }
@@ -69,6 +70,11 @@ function Header() {
       <Modal show={modal} onClose={() => setModal}>
         <form>
           <Modal.Content>
+            <Modal.Header>
+              <div className="text-lg text-red-600 font-bold">
+                Warning 
+              </div>
+            </Modal.Header>
             <Modal.Body className="">Do you really want to Logout ?</Modal.Body>
           </Modal.Content>
 

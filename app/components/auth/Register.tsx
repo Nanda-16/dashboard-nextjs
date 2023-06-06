@@ -2,7 +2,6 @@
 import { userRegister } from "@/redux/features/userSlice";
 import Alert from "../common/Alert";
 import Container from "../common/Container";
-import Header from "./Header";
 import RegisterForm from "./RegisterForm";
 import { useRouter } from "next/navigation";
 import { useAppDispatch } from "@/redux/hooks";
@@ -20,7 +19,7 @@ function Register() {
       const response = await dispatch(userRegister({ formData: data }));
 
       if (response.payload && response.payload.data) {
-        router.replace("/home");
+        router.push("/home");
       } else {
         setToast(true);
         setLoading(false);
@@ -35,13 +34,11 @@ function Register() {
 
   return (
     <>
-      <Header />
       <Container>
         <Alert
           variant="danger"
-          message="The given data was invalid"
-          title="Registeration Failed"
-          className="w-1/2"
+          message="Something went wrong. Please try again"
+          title="Registration Failed"
           show={toast}
           close
         />

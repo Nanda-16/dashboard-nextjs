@@ -26,13 +26,22 @@ export const Navbar = ({
   const toggle = () => {
     setOpen((prevState) => !prevState);
   };
+  const pathname = usePathname();
+
+  useEffect(() => {
+    if (open) {
+      setOpen(!open);
+    }
+  }, [pathname]);
+
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
-      if (window.innerWidth < 1024) {
-        if (!navbarRef.current?.contains(event?.target as HTMLElement)) {
-          if (!open) return;
-          setOpen(false);
-        }
+      if (
+        window.innerWidth < 1024 &&
+        !navbarRef.current?.contains(event.target as Node)
+      ) {
+        if (!open) return;
+        setOpen(false);
       }
     };
     window.addEventListener("click", handleOutsideClick);
