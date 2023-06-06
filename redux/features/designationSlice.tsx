@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 import { BASE_URL } from "@/endpoint";
-import { DesignationType } from "@/app/components/designations/DesignationHome";
 
 export type DesignationState = {
   designations: DesignationType[] | null;

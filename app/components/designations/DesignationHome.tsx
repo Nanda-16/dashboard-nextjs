@@ -19,13 +19,6 @@ import Loading from "../common/Loading";
 import DesignationAddModal from "./DesignationAddModal";
 import { useRouter } from "next/navigation";
 
-export interface DesignationType {
-  id: string | number;
-  name: string;
-  created_at?: string;
-  updated_at?: string;
-}
-
 type updateData = {
   modal_type: ModalType;
   id: string | number;

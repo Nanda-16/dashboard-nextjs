@@ -4,7 +4,6 @@ import PaginationComponent from "../Pagination";
 import Table from "../Table";
 import { selectUser } from "@/redux/features/userSlice";
 import { getDesignations } from "@/redux/features/designationSlice";
-import { DesignationType } from "./DesignationHome";
 
 interface TableProps {
   headings: string[];

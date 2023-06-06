@@ -1,6 +1,5 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { EmployeeType } from "./EmployeeHome";
 import { selectUser } from "@/redux/features/userSlice";
 import { editEmployee, selectEmployee } from "@/redux/features/employeeSlice";
 import { useEffect, useState } from "react";

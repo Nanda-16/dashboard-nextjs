@@ -4,7 +4,6 @@ import Alert from "../common/Alert";
 import Card from "../common/Card";
 import Container from "../common/Container";
 import EmployeeForm from "./EmployeeForm";
-import { EmployeeType } from "./EmployeeHome";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectUser } from "@/redux/features/userSlice";
 import {  useState } from "react";

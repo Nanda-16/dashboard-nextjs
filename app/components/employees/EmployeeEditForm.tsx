@@ -10,8 +10,6 @@ import { selectUser } from "@/redux/features/userSlice";
 import { OptionProps } from "../Form";
 import moment from "moment";
 import Image from "next/image";
-import { EmployeeType } from "./EmployeeHome";
-import { DesignationType } from "../designations/DesignationHome";
 
 type UpdateData = {
   id: string | number;

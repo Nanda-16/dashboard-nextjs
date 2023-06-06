@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 import { BASE_URL } from "@/endpoint";
-import { EmployeeType } from "@/app/components/employees/EmployeeHome";
 
 export type Employeestate = {
   employees: EmployeeType[] | null;

@@ -4,7 +4,6 @@ import FormField from "../Form";
 import Modal from "../common/Modal";
 import { useAppSelector } from "@/redux/hooks";
 import { selectDesignation } from "@/redux/features/designationSlice";
-import { DesignationType } from "./DesignationHome";
 
 export type ModalType = "Edit" | "Delete" | "NONE";
 

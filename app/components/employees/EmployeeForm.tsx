@@ -8,8 +8,6 @@ import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { getDesignations } from "@/redux/features/designationSlice";
 import { selectUser } from "@/redux/features/userSlice";
 import { OptionProps } from "../Form";
-import { EmployeeType } from "./EmployeeHome";
-import { DesignationType } from "../designations/DesignationHome";
 
 interface FormProps {
   onSubmit: (data: EmployeeType | {}) => void;

@@ -3,7 +3,6 @@ import Button from "../common/Button";
 import Modal from "../common/Modal";
 import { useAppSelector } from "@/redux/hooks";
 import { selectEmployee } from "@/redux/features/employeeSlice";
-import { EmployeeType } from "./EmployeeHome";
 
 interface FormProps {
   show: boolean;

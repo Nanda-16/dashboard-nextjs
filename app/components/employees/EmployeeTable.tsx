@@ -7,7 +7,6 @@ import PaginationComponent from "../Pagination";
 import { getEmployees } from "@/redux/features/employeeSlice";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectUser } from "@/redux/features/userSlice";
-import { EmployeeType } from "./EmployeeHome";
 
 interface EmployeeTable {
   headings: string[];
