@@ -1,8 +1,8 @@
-import { BASE_URL } from "@/api";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
-import { DesignationType } from "@/components/designations/DesignationHome";
+import { BASE_URL } from "@/endpoint";
+import { DesignationType } from "@/app/components/designations/DesignationHome";
 
 export type DesignationState = {
   designations: DesignationType[] | null;

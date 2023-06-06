@@ -10,7 +10,7 @@ import {
 } from "../common/Navbar";
 import Modal from "../common/Modal";
 import Button from "../common/Button";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { logout, selectUser } from "@/redux/features/userSlice";
 import { persistor } from "@/redux/store";
@@ -25,6 +25,7 @@ function Header() {
   const { user_data } = useAppSelector(selectUser);
   const [modal, setModal] = useState(false);
   const [login, setLogin] = useState(false);
+  const pathname = usePathname();
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -34,8 +35,8 @@ function Header() {
 
   const handleLogout = async () => {
     try {
-      await dispatch(logout());
       await persistor.purge();
+      dispatch(logout());
       router.replace("/?login=true");
     } catch (error) {
       console.error(error);
@@ -44,7 +45,7 @@ function Header() {
 
   return (
     <>
-      <Navbar className="bg-violet-600 text-white">
+      <Navbar className="bg-neutral-600 text-white">
         <NavbarHead href="/">Employee Manager</NavbarHead>
         {login && (
           <>
@@ -54,12 +55,13 @@ function Header() {
               <NavbarNav orientation="start">
                 <NavbarLink navLinks={home} />
               </NavbarNav>
-
-              <NavbarNav orientation="end">
-                <div onClick={() => setModal(true)}>
-                  <span className="hover:underline text-white">Logout</span>
-                </div>
-              </NavbarNav>
+              {pathname === "/home" && (
+                <NavbarNav orientation="end">
+                  <div onClick={() => setModal(true)}>
+                    <span className="hover:underline text-white">Logout</span>
+                  </div>
+                </NavbarNav>
+              )}
             </NavbarCollapse>
           </>
         )}

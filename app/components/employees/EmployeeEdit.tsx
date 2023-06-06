@@ -8,7 +8,6 @@ import Container from "../common/Container";
 import Alert from "../common/Alert";
 import Card from "../common/Card";
 import EmployeeEditForm from "./EmployeeEditForm";
-import { useRouter } from "next/navigation";
 
 type UpdateData = {
   id: string | number;
@@ -20,20 +19,13 @@ function EmployeeEdit({ id }: { id: string | number }) {
   const { user_data } = useAppSelector(selectUser);
   const { employees } = useAppSelector(selectEmployee);
   const [employee, setEmployee] = useState<EmployeeType>();
-  const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
-  const router = useRouter();
 
   useEffect(() => {
-    if (user_data?.access_token) {
-      setLoading(false);
-      const editEmployee = employees?.find((employee) => employee.id == id);
-      if (editEmployee) setEmployee(editEmployee);
-    } else {
-      router.push("/");
-    }
+    const editEmployee = employees?.find((employee) => employee.id == id);
+    if (editEmployee) setEmployee(editEmployee);
   }, []);
 
   const handleSubmit = async (data: UpdateData) => {
@@ -69,7 +61,7 @@ function EmployeeEdit({ id }: { id: string | number }) {
   };
 
   return (
-    <Container loading={loading}>
+    <Container>
       <Alert
         variant={error ? "danger" : "success"}
         title={error ? "Failed" : "Success"}

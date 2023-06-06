@@ -46,24 +46,14 @@ function LoginForm({
 
   return (
     <div className="flex flex-col justify-center items-center lg:pt-10">
-      <Card className="mx-3 sm:mx-auto sm:my-0">
+      <Card className="mx-3 sm:mx-auto sm:my-0 w-1/2">
         <Card.Header className="bg-white border-none pt-5 text-center text-lg sm:text-xl md:text-2xl lg:text-3xl mt-20 sm:mt-28 md:mt-10">
           WELCOME BACK
         </Card.Header>
 
-        <Card.Body className="px-8 pb-5">
-          <div className="g-6 flex h-full flex-wrap items-center justify-center lg:justify-between">
-            <div className="shrink-1 mb-12 grow-0 basis-auto md:mb-0 md:w-8/12 md:shrink-0 lg:w-5/12 xl:w-5/12">
-              <Image
-                src="/images/login.png"
-                alt="login"
-                width={300}
-                height={10}
-              />
-            </div>
-
-            <div className="mb-12 md:mb-0 md:w-9/12 lg:w-6/12 xl:w-6/12">
-              <form className="w-full max-w-md mt-3" onSubmit={handleSubmit}>
+        <Card.Body className="px-5 pb-5">
+          <div className="flex w-full h-full flex-wrap items-center justify-center">
+              <form className="w-full mt-3" onSubmit={handleSubmit}>
                 <FormField>
                   <FormField.Label htmlFor="loginEmail">Email</FormField.Label>
 
@@ -94,13 +84,13 @@ function LoginForm({
                   />
                 </FormField>
 
-                <div className="text-center lg:text-left">
+                <div className="text-center">
                   <Button type="submit" variant="primary" size="default">
                     {loading ? (
                       <div role="status">
                         <svg
                           aria-hidden="true"
-                          className="inline w-4 h-4 mr-2 text-white animate-spin  fill-violet-500"
+                          className="inline w-4 h-4 mr-2 text-white animate-spin  fill-neutral-500"
                           viewBox="0 0 100 101"
                           fill="none"
                           xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +123,6 @@ function LoginForm({
                   </p>
                 </div>
               </form>
-            </div>
           </div>
         </Card.Body>
       </Card>

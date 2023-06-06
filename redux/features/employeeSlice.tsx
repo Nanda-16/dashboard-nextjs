@@ -1,8 +1,8 @@
-import { BASE_URL } from "@/api";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
-import { EmployeeType } from "@/components/employees/EmployeeHome";
+import { BASE_URL } from "@/endpoint";
+import { EmployeeType } from "@/app/components/employees/EmployeeHome";
 
 export type Employeestate = {
   employees: EmployeeType[] | null;

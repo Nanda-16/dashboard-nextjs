@@ -1,4 +1,4 @@
-import EmployeeHome from "@/components/employees/EmployeeHome";
+import EmployeeHome from "@/app/components/employees/EmployeeHome";
 
 export const metadata = {
   title: "Employees - Employee Mananager",

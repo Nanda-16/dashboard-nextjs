@@ -6,7 +6,7 @@ const Loading = ({ className }: { className?: string }) => {
     >
       <svg
         aria-hidden="true"
-        className="inline w-4 h-4 mr-2 text-slate-400 animate-spin fill-violet-500"
+        className="inline w-4 h-4 mr-2 text-slate-400 animate-spin fill-neutral-500"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -20,7 +20,7 @@ const Loading = ({ className }: { className?: string }) => {
           fill="currentFill"
         />
       </svg>
-      <span className="text-violet-500">Loading...</span>
+      <span className="text-neutral-500">Loading...</span>
     </div>
   );
 };

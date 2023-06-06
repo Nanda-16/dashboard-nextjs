@@ -1,4 +1,4 @@
-import DashboardHome from "@/components/home/DashboardHome";
+import DashboardHome from "@/app/components/home/DashboardHome";
 
 export const metadata = {
   title: "Home - Employee Mananager",

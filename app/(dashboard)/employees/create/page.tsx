@@ -1,4 +1,4 @@
-import EmployeeAdd from "@/components/employees/EmployeeAdd";
+import EmployeeAdd from "@/app/components/employees/EmployeeAdd";
 
 export const metadata = {
   title: "Create Employee - Employee Mananager",

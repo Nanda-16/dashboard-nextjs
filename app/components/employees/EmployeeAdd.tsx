@@ -7,25 +7,14 @@ import EmployeeForm from "./EmployeeForm";
 import { EmployeeType } from "./EmployeeHome";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { selectUser } from "@/redux/features/userSlice";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import {  useState } from "react";
 
 function EmployeeAdd() {
   const dispatch = useAppDispatch();
   const { user_data } = useAppSelector(selectUser);
-  const [loading, setLoading] = useState(true);
   const [toast, setToast] = useState(false);
   const [message, setMessage] = useState("");
   const [error, setError] = useState(false);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (user_data?.access_token) {
-      setLoading(false);
-    } else {
-      router.push("/");
-    }
-  }, []);
 
   const handleSubmit = async (data: EmployeeType) => {
     try {
@@ -78,7 +67,7 @@ function EmployeeAdd() {
   };
 
   return (
-    <Container className="w-full" loading={loading}>
+    <Container className="w-full">
       <Alert
         variant={error ? "danger" : "success"}
         title={error ? "Failed" : "Success"}

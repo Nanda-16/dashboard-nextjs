@@ -11,9 +11,9 @@ export const AlertStyles = {
 export const ButtonStyles = {
   btn: `focus:outline-none outline-none text-centerfont-medium`,
   variant: {
-    primary: `text-white m-1 bg-violet-600 hover:bg-violet-400 focus:bg-violet-400 rounded`,
-    "outline-primary": `m-1 text-violet-600 border border-violet-600 hover:bg-violet-100 focus:bg-violet-100 rounded`,
-    "icon-primary": `text-white bg-violet-600 hover:bg-violet-400 focus:bg-violet-400`,
+    primary: `text-white m-1 bg-neutral-600 hover:bg-neutral-400 focus:bg-neutral-400 rounded`,
+    "outline-primary": `m-1 text-neutral-600 border border-neutral-600 hover:bg-neutral-100 focus:bg-neutral-100 rounded`,
+    "icon-primary": `text-white bg-neutral-600 hover:bg-neutral-400 focus:bg-neutral-400`,
     secondary: `m-1 hover:text-white bg-neutral-200 hover:bg-neutral-400 focus:bg-neutral-400 focus:text-white rounded`,
     success: `m-1 text-white bg-green-600 hover:bg-green-500 hover:border hover:border-green-600 focus:bg-green-500 rounded`,
     danger: `m-1 text-white bg-red-600 hover:bg-red-500 focus:bg-red-500 hover:border hover:border-red-600 rounded`,
@@ -51,7 +51,7 @@ export const FormStyles = {
   },
   input: {
     text: `border border-gray-300 text-gray-900 text-sm focus:outline-none w-full p-2.5 caret-neutral-400`,
-    checkbox: `accent-violet-600 w-4 h-4`,
+    checkbox: `accent-neutral-600 w-4 h-4`,
     file: `text-gray-900 text-sm focus:outline-none w-full p-2.5`,
   },
 };
@@ -63,7 +63,7 @@ export const ModalStyles = {
 
 export const NavbarStyles = {
   navbar: `px-4 py-2 mb-10 sm:mb-0 shadow w-full lg:flex lg:flex-row lg:items-center lg:justify-start fixed top-0 z-10`,
-  head: `cursor-pointer font-bold inline-block mr-4 py-1.5 text-2xl md:text-3xl whitespace-nowrap hover:text-violet-200`,
+  head: `cursor-pointer font-bold inline-block mr-4 py-1.5 text-2xl md:text-3xl whitespace-nowrap hover:text-neutral-200`,
   toggler: `block float-right text-4xl lg:hidden focus:outline-none focus:shadow`,
   item: `whitespace-pre cursor-pointer px-4 py-2`,
   link: ` hover:underline`,
@@ -85,7 +85,7 @@ export const PaginationStyles = {
   next: `rounded-r-md`,
   li: `px-1 sm:px-3 py-2 leading-tight bg-neutral-600 border-gray-800 text-gray-300 hover:bg-neutral-700 hover:text-white`,
   disabled: `px-1 sm:px-3 py-2 leading-tight bg-neutral-600 border-gray-800 text-gray-500`,
-  active: `px-1 sm:px-3 py-2 hover:bg-violet-100 hover:text-violet-700 border-gray-800 bg-neutral-700 text-white`,
+  active: `px-1 sm:px-3 py-2 hover:bg-neutral-100 hover:text-neutral-700 border-gray-800 bg-neutral-700 text-white`,
 };
 
 export const TableStyles = {

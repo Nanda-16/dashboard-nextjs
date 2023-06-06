@@ -1,8 +1,8 @@
-import { BASE_URL } from "@/api";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { RootState } from "../store";
 import { useRouter } from "next/navigation";
+import { BASE_URL } from "@/endpoint";
 
 export type UserState = {
   user_data: {

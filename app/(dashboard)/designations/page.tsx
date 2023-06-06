@@ -1,4 +1,4 @@
-import DesignationHome from "@/components/designations/DesignationHome";
+import DesignationHome from "@/app/components/designations/DesignationHome";
 
 export const metadata = {
   title: "Designations - Employee Mananager",
